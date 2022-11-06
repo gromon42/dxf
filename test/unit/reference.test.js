@@ -21,7 +21,6 @@ describe("Reference files don't generate errors", function () {
     }
   }
 
-  it('entities.dxf', createTest('entities.dxf'))
   it(
     'Ceco.NET-Architecture-Tm-53.dxf',
     createTest('Ceco.NET-Architecture-Tm-53.dxf'),
