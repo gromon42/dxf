@@ -1,5 +1,5 @@
 {
-  "name": "finds-dxf",
+  "name": "dxf-parser",
   "version": "1.0.0",
   "description": "DXF parser for node/browser",
   "main": "lib/index.js",
