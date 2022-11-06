@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/bjnortier/dxf.svg?branch=master)](https://travis-ci.org/bjnortier/dxf)
 
-# dxf
+# DXF parser
+
+This package is a fork of this awesome [package](https://www.npmjs.com/package/dxf) made by [https://github.com/skymakerolof](https://github.com/skymakerolof) and add capabilities to handle how we can generate SVG with more options from a dxf file.
 
 DXF parser for node/browser.
 
