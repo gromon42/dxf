@@ -2,11 +2,13 @@ import cloneDeep from 'lodash/cloneDeep'
 
 import logger from './util/logger'
 
-export default (parseResult) => {
+export default (parseResult, byBlock) => {
   const blocksByName = parseResult.blocks.reduce((acc, b) => {
     acc[b.name] = b
     return acc
   }, {})
+
+  // console.log(blocksByName)
 
   const gatherEntities = (entities, transforms) => {
     let current = []
@@ -98,7 +100,16 @@ export default (parseResult) => {
               }
               return be2
             })
-            current = current.concat(gatherEntities(blockEntities, transforms2))
+            if (byBlock) {
+              current = current.concat({
+                name: insert.block,
+                entities: gatherEntities(blockEntities, transforms2),
+              })
+            } else {
+              current = current.concat(
+                gatherEntities(blockEntities, transforms2),
+              )
+            }
           }
         }
       } else {

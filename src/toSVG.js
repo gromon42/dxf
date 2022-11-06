@@ -330,8 +330,7 @@ const entityToBoundsAndElement = (entity) => {
   }
 }
 
-export default (parsed) => {
-  const entities = denormalise(parsed)
+const getBboxAndElements = (parsed, entities) => {
   const { bbox, elements } = entities.reduce(
     (acc, entity, i) => {
       const rgb = getRGBForEntity(parsed.tables.layers, entity)
@@ -344,9 +343,18 @@ export default (parsed) => {
           acc.bbox.expandByPoint(bbox.min)
           acc.bbox.expandByPoint(bbox.max)
         }
-        acc.elements.push(
-          `<g stroke="${rgbToColorAttribute(rgb)}">${element}</g>`,
-        )
+
+        // console.log(entity)
+
+        entity.layer
+          ? acc.elements.push(
+              `<g stroke="${rgbToColorAttribute(rgb)}" data-layer="${
+                entity.layer
+              }" data-layer="${entity.type}">${element}</g>`,
+            )
+          : acc.elements.push(
+              `<g stroke="${rgbToColorAttribute(rgb)}">${element}</g>`,
+            )
       }
       return acc
     },
@@ -356,6 +364,10 @@ export default (parsed) => {
     },
   )
 
+  return { bbox, elements }
+}
+
+const getViewBox = (bbox) => {
   const viewBox = bbox.valid
     ? {
         x: bbox.min.x,
@@ -369,6 +381,11 @@ export default (parsed) => {
         width: 0,
         height: 0,
       }
+
+  return viewBox
+}
+
+const getSvg = (elements, viewBox) => {
   return `<?xml version="1.0"?>
 <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -381,4 +398,34 @@ export default (parsed) => {
     ${elements.join('\n')}
   </g>
 </svg>`
+}
+
+export default (parsed, byBlock) => {
+  const denormalised = denormalise(parsed, byBlock)
+
+  let result
+  let viewBox
+  let svg
+
+  if (byBlock) {
+    const results = []
+
+    denormalised.forEach((block) => {
+      if (block.name) {
+        result = getBboxAndElements(parsed, block.entities)
+        viewBox = getViewBox(result.bbox)
+        svg = getSvg(result.elements, viewBox)
+
+        results.push(svg)
+      }
+    })
+
+    return results
+  } else {
+    result = getBboxAndElements(parsed, denormalised)
+    viewBox = getViewBox(result.bbox)
+    svg = getSvg(result.elements, viewBox)
+
+    return svg
+  }
 }
