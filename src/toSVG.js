@@ -344,17 +344,9 @@ const getBboxAndElements = (parsed, entities) => {
           acc.bbox.expandByPoint(bbox.max)
         }
 
-        // console.log(entity)
-
-        entity.layer
-          ? acc.elements.push(
-              `<g stroke="${rgbToColorAttribute(rgb)}" data-layer="${
-                entity.layer
-              }" data-layer="${entity.type}">${element}</g>`,
-            )
-          : acc.elements.push(
-              `<g stroke="${rgbToColorAttribute(rgb)}">${element}</g>`,
-            )
+        acc.elements.push(
+          `<g stroke="${rgbToColorAttribute(rgb)}">${element}</g>`,
+        )
       }
       return acc
     },
