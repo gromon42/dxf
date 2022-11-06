@@ -1,6 +1,6 @@
 {
-  "name": "dxf",
-  "version": "4.7.0",
+  "name": "finds-dxf",
+  "version": "1.0.0",
   "description": "DXF parser for node/browser",
   "main": "lib/index.js",
   "bin": {
@@ -22,19 +22,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/skymakerolof/dxf.git"
+    "url": "git://github.com/gromon42/finds-dxf.git"
   },
   "keywords": [
     "DXF",
     "Parser",
     "SVG"
   ],
-  "author": "Ben Nortier <ben@bjnortier.com>",
+  "author": "Gaultier Romon <gaultieromon@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/skymakerolof/dxf/issues"
+    "url": "https://github.com/gromon42/finds-dxf/issues"
   },
-  "homepage": "https://github.com/skymakerolof/dxf",
+  "homepage": "https://github.com/gromon42/finds-dxf",
   "devDependencies": {
     "@babel/cli": "^7.18.10",
     "@babel/core": "^7.19.1",
